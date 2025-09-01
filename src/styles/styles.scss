@@ -1,0 +1,137 @@
+.wrapper {
+  margin: 0 8% 0 16%;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: #42567a1a;
+  position: relative;
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50px;
+  width: 4px;
+  height: 100px;
+  background: linear-gradient(to right, #ef5da8, #3877ee);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  max-width: 1440px;
+  padding-left: 6%;
+  padding-right: 3%;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header__title {
+  font-size: 50px;
+  font-weight: 700;
+  max-width: 353px;
+}
+
+.main__years-title {
+  font-size: 125px;
+  text-align: center;
+  max-width: 973px;
+  max-height: 160px;
+  font-weight: 700;
+}
+
+.main__years {
+  display: flex;
+  justify-content: center;
+  line-height: 160px;
+  letter-spacing: -2%;
+  text-align: center;
+}
+
+.main__years::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background-color: #42567a1a;
+}
+
+.main__container-button {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.main__years-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border: 1px solid #42567a80;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.main__years-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.main__years-button:last-child {
+  margin-right: 0px;
+}
+
+.main__years-title--start {
+  color: #5d5fef;
+  
+}
+
+.main__years-title--end {
+  color: #ef5da8;
+}
+
+.slide__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.slide__content-year {
+  font-family: Bebas Neue, sans-serif;
+  font-size: 25px;
+  color: #3877ee;
+  margin-bottom: 15px;
+}
+
+.slide__content-text {
+  word-break: break-word;
+}
+
+.swiper {
+  width: 100%;
+  max-width: 1200px;
+  height: 135px;
+  box-sizing: border-box;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+}
