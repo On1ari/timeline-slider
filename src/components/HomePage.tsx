@@ -1,16 +1,23 @@
-import React, { useCallback, useRef, useState } from 'react'
-import '../styles/styles.scss'
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useCallback, useEffect, useState } from 'react'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { FreeMode, Navigation, Pagination } from 'swiper/modules';
 import { ranges } from '../data/ranges'
 import { RangeNavigation } from './RangeNavigation';
+import '../styles/styles.scss'
+import { CircleBlock } from './CircleBlock';
+import { HistoricalSwiper } from './HistoricalSwiper';
 
 const Home = () => {
   const [rangeIndex, setRangeIndex] = useState(0);
   const activeRange = ranges[rangeIndex];
+  const [showNav, setShowNav] = useState(window.innerWidth > 655);
+
+  useEffect(() => {
+    const handleResize = () => setShowNav(window.innerWidth > 655);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handlePrev = useCallback(() => {
     setRangeIndex((prev) => Math.max(0, prev - 1));
@@ -23,13 +30,17 @@ const Home = () => {
   return (
     <div className='wrapper'>
       <div className='container'>
+        <CircleBlock
+          currentIndex={rangeIndex}
+          onSelect={(index) => setRangeIndex(index)}
+        />
         <div className='content'>
           <header className='header'>
-            <h2 className='header__title'>Исторические даты</h2>
+            <h2 className='header__title'>Исторические <br /> даты</h2>
           </header>
-          <main className='main__years'>
-            <span className='main__years-title main__years-title--start'>{activeRange.start}</span>
-            <span className='main__years-title main__years-title--end'>{activeRange.end}</span>
+          <main className='years__container'>
+            <span className='years__title years__title--start'>{activeRange.start}</span>
+            <span className='years__title years__title--end'>{activeRange.end}</span>
           </main>
           <RangeNavigation
             currentIndex={rangeIndex}
@@ -37,23 +48,7 @@ const Home = () => {
             onPrev={handlePrev}
             onNext={handleNext}
           />
-          <Swiper
-            slidesPerView={3}
-            freeMode={true}
-            spaceBetween={30}
-            grabCursor={true}
-            navigation={true}
-            modules={[FreeMode, Navigation]}
-          >
-            {activeRange.events.map((event) => (
-              <SwiperSlide key={event.year}>
-                <div className="slide__content">
-                  <span className="slide__content-year">{event.year}</span>
-                  <p className='slide__content-text'>{event.text}</p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <HistoricalSwiper activeRange={activeRange} showNav={showNav} />
         </div>
       </div>
     </div>
