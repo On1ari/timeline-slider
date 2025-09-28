@@ -1,10 +1,6 @@
 import React from "react";
 import "../styles/styles.scss";
-
-interface Point {
-  number: number;
-  label: string;
-}
+import { POINTS, Point } from "../constants/points";
 
 interface CircleBlockProps {
   points?: Point[];
@@ -12,18 +8,7 @@ interface CircleBlockProps {
   onSelect?: (index: number) => void;
 }
 
-export const CircleBlock: React.FC<CircleBlockProps> = ({
-  points = [
-    { number: 1, label: "Книги" },
-    { number: 2, label: "Кино" },
-    { number: 3, label: "Литература" },
-    { number: 4, label: "Музыка" },
-    { number: 5, label: "Искусство" },
-    { number: 6, label: "Наука" },
-  ],
-  currentIndex = 0,
-  onSelect,
-}) => {
+export const CircleBlock: React.FC<CircleBlockProps> = ({ points = POINTS, currentIndex = 0, onSelect, }) => {
   return (
     <div className="circle-block">
       <div className="circle">

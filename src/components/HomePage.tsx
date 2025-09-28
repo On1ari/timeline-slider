@@ -7,11 +7,19 @@ import { RangeNavigation } from './RangeNavigation';
 import '../styles/styles.scss'
 import { CircleBlock } from './CircleBlock';
 import { HistoricalSwiper } from './HistoricalSwiper';
+import gsap from 'gsap';
+
+interface AnimatedRangeProps {
+  start: number;
+  end: number;
+}
 
 const Home = () => {
   const [rangeIndex, setRangeIndex] = useState(0);
   const activeRange = ranges[rangeIndex];
   const [showNav, setShowNav] = useState(window.innerWidth > 655);
+  const [startYear, setStartYear] = useState(activeRange.start);
+  const [endYear, setEndYear] = useState(activeRange.end);
 
   useEffect(() => {
     const handleResize = () => setShowNav(window.innerWidth > 655);
@@ -27,6 +35,22 @@ const Home = () => {
     setRangeIndex((prev) => Math.min(ranges.length - 1, prev + 1));
   }, []);
 
+  useEffect(() => {
+    const obj = { s: startYear, e: endYear };
+
+    gsap.to(obj, {
+      s: activeRange.start,
+      e: activeRange.end,
+      duration: 1,
+      roundProps: 's,e',
+      ease: 'power1.out',
+      onUpdate: () => {
+        setStartYear(obj.s);
+        setEndYear(obj.e);
+      },
+    });
+  }, [activeRange]);
+
   return (
     <div className='wrapper'>
       <div className='container'>
@@ -39,8 +63,8 @@ const Home = () => {
             <h2 className='header__title'>Исторические <br /> даты</h2>
           </header>
           <main className='years__container'>
-            <span className='years__title years__title--start'>{activeRange.start}</span>
-            <span className='years__title years__title--end'>{activeRange.end}</span>
+            <span className='years__title years__title--start'>{startYear}</span>
+            <span className='years__title years__title--end'>{endYear}</span>
           </main>
           <RangeNavigation
             currentIndex={rangeIndex}
