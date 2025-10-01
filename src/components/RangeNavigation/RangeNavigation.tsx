@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import leftArrow from '../assets/leftArrow.svg';
-import rightArrow from '../assets/rightArrow.svg';
+import leftArrow from '../../assets/leftArrow.svg';
+import rightArrow from '../../assets/rightArrow.svg';
+import './RangeNavigation.scss'
 
 interface RangeNavigationProps {
   currentIndex: number;
@@ -23,7 +24,7 @@ export const RangeNavigation = ({ currentIndex, total, onPrev, onNext }: RangeNa
   return (
     <div className="navigation">
       <div>
-        <span className='navigation-text'>
+        <span className='navigation__text'>
           {formatNumber(currentIndex + 1)}/{formatNumber(total)}
         </span>
         <div className="navigation__container-button">
@@ -32,14 +33,14 @@ export const RangeNavigation = ({ currentIndex, total, onPrev, onNext }: RangeNa
             onClick={onPrev}
             disabled={currentIndex === 0}
           >
-            <img src={leftArrow} alt="left" width={8} height={14} />
+            <img src={leftArrow} alt="Previous slide" width={8} height={14} />
           </button>
           <button
             className="navigation__button"
             onClick={onNext}
             disabled={currentIndex === total - 1}
           >
-            <img src={rightArrow} alt="right" width={8} height={14} />
+            <img src={rightArrow} alt="Next slide" width={8} height={14} />
           </button>
         </div>
       </div>

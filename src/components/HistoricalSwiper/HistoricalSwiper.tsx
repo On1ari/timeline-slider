@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { FreeMode, Navigation, Pagination } from 'swiper/modules';
-import '../styles/styles.scss';
+import gsap from 'gsap';
+import './HistoricalSwiper.scss'
 
 interface HistoricalSwiperProps {
   activeRange: Range;
   showNav: boolean;
 }
+
 interface Event {
   year: string | number;
   text: string;
@@ -21,6 +23,17 @@ interface Range {
   events: Event[];
 }
 export const HistoricalSwiper: React.FC<HistoricalSwiperProps> = ({ activeRange, showNav }) => {
+  const swiperRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!swiperRef.current) return;
+
+    const tl = gsap.timeline();
+    tl.to(swiperRef.current, { opacity: 0, duration: 0.5 })
+      .to(swiperRef.current, { opacity: 1, duration: 0.5, delay: 0.3, ease: 'power2.in' });
+
+  }, [activeRange]);
+
   return (
     <Swiper
       slidesPerView={1}
@@ -34,6 +47,7 @@ export const HistoricalSwiper: React.FC<HistoricalSwiperProps> = ({ activeRange,
         clickable: true,
       }}
       modules={[FreeMode, Navigation, Pagination]}
+      onSwiper={(swiper) => (swiperRef.current = swiper.el)}
       breakpoints={{
         0: {
           slidesPerView: 1.5,
@@ -52,10 +66,6 @@ export const HistoricalSwiper: React.FC<HistoricalSwiperProps> = ({ activeRange,
           },
         },
         1100: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-        1440: {
           slidesPerView: 3,
           spaceBetween: 30,
         },
