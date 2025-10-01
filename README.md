@@ -1,3 +1,5 @@
+demo: https://timeline-slider-two.vercel.app/
+
 # Установка:
 
 npm install
@@ -9,4 +11,5 @@ npm start
 # Сборка:
 
 npm run build
+
 
