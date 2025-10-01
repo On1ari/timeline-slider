@@ -1,0 +1,93 @@
+@use '../../styles/breakpoints' as bp;
+@use '../../styles/colors' as c;
+
+
+.wrapper {
+  margin: 0 8% 0 16%;
+  border-width: 0 1px 0 1px;
+  border-style: solid;
+  border-color: rgba(c.$black-blue, 0.2);
+  position: relative;
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 30px;
+  width: 4px;
+  height: 120px;
+  background: linear-gradient(to right, c.$pink, c.$blue);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 4%;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  order: 1;
+}
+
+.header__title {
+  font-size: clamp(30px, 9vw, 50px);
+  font-weight: 700;
+}
+
+.years__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: -2%;
+  text-align: center;
+  order: 2;
+}
+
+.years__title {
+  font-size: clamp(56px, 13vw, 140px);
+  text-align: center;
+  max-width: 973px;
+  max-height: 160px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.years__title--start {
+  color: c.$blue;
+  margin-right: 5%;
+}
+
+.years__title--end {
+  color: c.$pink;
+}
+
+
+@media (max-width: bp.$bp-mobile) {
+  .wrapper {
+    border-width: 0;
+    margin: 0 8% 0 8%;
+  }
+
+  .wrapper::before {
+    display: none;
+  }
+
+  .container {
+    padding: 0;
+  }
+}

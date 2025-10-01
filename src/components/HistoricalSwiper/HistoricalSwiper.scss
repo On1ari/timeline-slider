@@ -1,0 +1,82 @@
+@use '../../styles/breakpoints' as bp;
+@use '../../styles/colors' as c;
+
+.slide__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide__year {
+  font-family: Bebas Neue, sans-serif;
+  font-size: 18px;
+  color: c.$blue;
+  margin-bottom: 15px;
+}
+
+.slide__text {
+  word-break: break-word;
+  font-size: 14px;
+}
+
+.swiper {
+  order: 4;
+  width: 100%;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+.swiper-wrapper {
+  min-height: 150px;
+  height: auto;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: clamp(14px, 4vw, 18px);
+}
+
+.custom-pagination {
+  order: 5;
+  display: inline-flex;
+  margin-left: 20px;
+}
+
+.swiper-pagination-bullet-active {
+  background: rgba(c.$black-blue, 1);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0px 0px 15px 0px rgba(c.$blue, 0.5);
+  background:  #fff;
+  border-radius: 50%;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next:after {
+  content: '';
+  width: 8px;
+  height: 14px;
+}
+.swiper-button-prev::after {
+  background: url('../../assets/leftArrow.svg') no-repeat center center;
+  
+}
+.swiper-button-next:after {
+  background: url('../../assets/rightArrow.svg') no-repeat center center;
+}
+
+
+@media (max-width: 1440px) {
+    .swiper {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: bp.$bp-mobile) {
+  .swiper {
+    max-width: 350px;
+    order: 3;
+  }
+}

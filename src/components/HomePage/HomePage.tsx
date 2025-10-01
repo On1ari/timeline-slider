@@ -1,25 +1,27 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { ranges } from '../data/ranges'
-import { RangeNavigation } from './RangeNavigation';
-import '../styles/styles.scss'
-import { CircleBlock } from './CircleBlock';
-import { HistoricalSwiper } from './HistoricalSwiper';
+import { ranges } from '../../data/ranges'
+import { RangeNavigation } from '../RangeNavigation/RangeNavigation';
+import { CircleBlock } from '../CircleBlock/CircleBlock';
+import { HistoricalSwiper } from '../HistoricalSwiper/HistoricalSwiper';
 import gsap from 'gsap';
+import './HomePage.scss'
 
 interface AnimatedRangeProps {
   start: number;
   end: number;
 }
 
-const Home = () => {
+const HomePage = () => {
   const [rangeIndex, setRangeIndex] = useState(0);
-  const activeRange = ranges[rangeIndex];
   const [showNav, setShowNav] = useState(window.innerWidth > 655);
-  const [startYear, setStartYear] = useState(activeRange.start);
-  const [endYear, setEndYear] = useState(activeRange.end);
+  const activeRange = ranges[rangeIndex];
+  const startRef = useRef<HTMLSpanElement>(null);
+  const endRef = useRef<HTMLSpanElement>(null);
+
+  const prevRangeRef = useRef(activeRange);
 
   useEffect(() => {
     const handleResize = () => setShowNav(window.innerWidth > 655);
@@ -36,7 +38,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const obj = { s: startYear, e: endYear };
+    const obj = { s: prevRangeRef.current.start, e: prevRangeRef.current.end };
 
     gsap.to(obj, {
       s: activeRange.start,
@@ -45,10 +47,11 @@ const Home = () => {
       roundProps: 's,e',
       ease: 'power1.out',
       onUpdate: () => {
-        setStartYear(obj.s);
-        setEndYear(obj.e);
+        if (startRef.current) startRef.current.textContent = String(obj.s);
+        if (endRef.current) endRef.current.textContent = String(obj.e);
       },
     });
+    prevRangeRef.current = activeRange;
   }, [activeRange]);
 
   return (
@@ -63,8 +66,8 @@ const Home = () => {
             <h2 className='header__title'>Исторические <br /> даты</h2>
           </header>
           <main className='years__container'>
-            <span className='years__title years__title--start'>{startYear}</span>
-            <span className='years__title years__title--end'>{endYear}</span>
+            <span ref={startRef} className='years__title years__title--start'>{activeRange.start}</span>
+            <span ref={endRef} className='years__title years__title--end'>{activeRange.end}</span>
           </main>
           <RangeNavigation
             currentIndex={rangeIndex}
@@ -79,4 +82,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage;

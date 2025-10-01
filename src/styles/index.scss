@@ -1,3 +1,5 @@
+@use './colors' as c;
+
 * {
   margin: 0;
   padding: 0;
@@ -6,9 +8,11 @@
   font-weight: 400;
   letter-spacing: 0%;
   text-align: left;
-  color: #42567a;
+  color: c.$black-blue;
 }
-
+.html {
+  background: rgba(244, 245, 249, 1);
+}
 button {
   all: unset;
   box-sizing: border-box;

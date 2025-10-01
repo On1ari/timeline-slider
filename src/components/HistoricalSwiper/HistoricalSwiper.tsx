@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { FreeMode, Navigation, Pagination } from 'swiper/modules';
 import gsap from 'gsap';
-import '../styles/styles.scss';
+import './HistoricalSwiper.scss'
 
 interface HistoricalSwiperProps {
   activeRange: Range;
@@ -66,10 +66,6 @@ export const HistoricalSwiper: React.FC<HistoricalSwiperProps> = ({ activeRange,
           },
         },
         1100: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-        1440: {
           slidesPerView: 3,
           spaceBetween: 30,
         },
